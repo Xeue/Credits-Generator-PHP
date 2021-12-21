@@ -1,0 +1,795 @@
+html {
+  opacity: 1;
+}
+
+body {
+  background-image:
+    linear-gradient(45deg, rgb(197, 197, 197) 25%, transparent 25%),
+    linear-gradient(-45deg, rgb(197, 197, 197) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 5%, rgb(197, 197, 197)),
+    linear-gradient(-45deg, transparent 75%, rgb(197, 197, 197) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+#mainBody {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#creditsCont {
+  padding-top: 2em;
+  padding-bottom: 200px;
+}
+
+header,
+footer {
+  background: rgb(39, 39, 39);
+  width: calc(100% - 14px);
+  padding: 7px;
+}
+
+header > div {
+  pointer-events: none;
+}
+
+#creditsBody {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#creditsScroller {
+  overflow-y: auto;
+}
+
+#creditsScroller.noScroll {
+  overflow-y: hidden;
+  width: 100%;
+  top: 0;
+  position: absolute;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.endFadeGroup.hidden {
+  transition: opacity 1s 0s;
+  opacity: 0;
+  display: flex !important;
+}
+
+.extraHidden {
+  transition: opacity 1s 0s;
+  opacity: 0 !important;
+}
+
+/* ################ */
+/* #### Inputs #### */
+/* ################ */
+
+header button, footer button, .popup button, #editorCont button, nav button {
+  font-size: 16px;
+  cursor: pointer;
+  height: 2.5em;
+  padding: 0.5em 1em;
+  box-sizing: border-box;
+  background-color: rgb(0, 0, 0);
+  border: rgb(8, 8, 8) 1px solid;
+  box-shadow: rgb(64, 64, 64) 0px 0px 7px 0px inset;
+  border-radius: 5px;
+  min-width: 50px;
+  color: white;
+  transition: 0.2s;
+  margin-left: 7px;
+}
+
+#editorCont button {
+  margin: 5px;
+  height: unset;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+  color: #333;
+  background-color: rgb(0, 0, 0) !important;
+}
+
+header button:hover,
+footer button:hover,
+.popup button:hover,
+#editorCont button:hover {
+  background-color: rgb(40, 40, 40);
+}
+button.active {
+  background-color: rgb(11, 39, 63);
+}
+
+input[type="text"],
+.editorProp,
+.settingProp {
+  font-size: 16px;
+  padding: 0.5em;
+  box-sizing: border-box;
+  background-color: rgb(82, 82, 82);
+  border: rgb(8, 8, 8) 1px solid;
+  box-shadow: rgb(64, 64, 64) 0px 0px 7px 0px inset;
+  border-radius: 5px;
+  min-width: 50px;
+  color: rgb(255, 255, 255);
+  transition: 0.2s;
+  user-select: text;
+}
+
+header select,
+footer select,
+.popup select {
+  background-image: url(assets/arrow_down.png);
+  color: rgb(255, 255, 255);
+  appearance: none;
+  -webkit-appearance: none;
+  background-position-x: right;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-size: 2em;
+  font-size: 16px;
+  cursor: pointer;
+  height: 2.5em;
+  padding: 0.5em;
+  padding-right: 2em;
+  box-sizing: border-box;
+  background-color: rgb(17, 17, 17);
+  border: rgb(0, 0, 0) 1px solid;
+  box-shadow: rgb(54, 54, 54) 0px 0px 3px 0px inset;
+  border-radius: 5px;
+  min-width: 50px;
+  filter: none;
+}
+
+#editButton,
+#saveButton,
+#newButton,
+#settings,
+#run {
+  float: right;
+}
+
+/* ################# */
+/* #### Toggles #### */
+/* ################# */
+
+input[type="checkbox"] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  margin: 0;
+  position: relative;
+  overflow: visible;
+	border: none;
+	box-shadow: #000 0px 0px 5px -3px !important;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked::before {
+  left: 2px;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  background: rgb(243, 243, 243);
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 100%;
+  top: 2px;
+  box-sizing: border-box;
+  left: 22px;
+  z-index: 1;
+}
+
+input[type="radio"][readonly], input[type="checkbox"][readonly] {
+	border-radius: 12px;
+	padding: 0px;
+	border: none;
+	cursor: not-allowed;
+}
+
+input[type="checkbox"] {
+	margin: 2px;
+}
+
+input[type="checkbox"]:checked {
+  background-color: rgb(0,153,0)
+}
+
+input[type="checkbox"] {
+  background-color: rgb(255,0,0);
+}
+
+input[type="checkbox"],
+input[type="checkbox"]::before {
+  transition: 0.1s;
+}
+
+/* ############### */
+/* #### Fades #### */
+/* ############### */
+
+.endFadeGroup {
+  transition: opacity 1s 1s;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 1;
+}
+
+#creditsLogos {
+  transition: opacity 0.5s;
+  height: 100%;
+  position: relative;
+  display: block;
+  opacity: 1;
+}
+
+#creditsLogos.hidden {
+  display: block;
+  opacity: 0;
+}
+
+/* ############### */
+/* #### Popup #### */
+/* ############### */
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.13);
+  display: flex;
+  flex-direction: column;
+}
+
+.popup > * {
+  margin: auto;
+  min-width: 300px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 7px 0px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.popup > * > section {
+  background-color: #000;
+  padding: 10px;
+  font-size: 16pt;
+}
+.popup footer {
+  display: flex;
+}
+.popup header {
+  padding-left: 14px;
+  width: calc(100% - 21px);
+}
+
+.popup footer button {
+  flex: 1;
+}
+
+#uploadFileBut {
+  width: 100%;
+}
+
+#uploadName {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#saveExisting *,
+#saveNew *,
+#uploadExisting *,
+#uploadNew * {
+  pointer-events: none;
+}
+
+#saveExisting select,
+#saveNew select,
+#uploadExisting select,
+#uploadNew select {
+  cursor: not-allowed;
+  color: rgb(85, 85, 85);
+  background-color: rgb(30, 30, 30) !important;
+  transition: 0.3s;
+}
+
+#saveExisting.selected select,
+#saveNew.selected select,
+#uploadExisting.selected select,
+#uploadNew.selected select {
+  cursor: pointer;
+  color: white;
+  background-color: rgb(17, 17, 17);
+}
+
+#saveExisting.selected *,
+#saveNew.selected *,
+#uploadExisting.selected *,
+#uploadNew.selected * {
+  pointer-events: all;
+}
+
+#saveNew,
+#uploadNew {
+  margin-top: 10px;
+}
+#saveFile,
+#uploadFile {
+  margin-bottom: 10px;
+}
+
+#saveExisting,
+#saveNew,
+#uploadExisting,
+#uploadNew {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #333;
+  color: #888;
+  padding: 5px;
+  padding-left: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#saveExisting.selected,
+#saveNew.selected,
+#uploadExisting.selected,
+#uploadNew.selected {
+  background-color: #111;
+  color: #fff;
+  cursor: auto;
+}
+
+#saveExisting.selected::before,
+#saveNew.selected::before,
+#uploadExisting.selected::before,
+#uploadNew.selected::before {
+  width: 12px;
+}
+
+#saveExisting::before,
+#saveNew::before,
+#uploadExisting::before,
+#uploadNew::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0px;
+  background-color: #090;
+  transition: 0.3s;
+}
+
+#creditsButton,
+#saveButSave,
+#uploadButSave {
+  margin: 0 !important;
+}
+
+.popup::before {
+  content: "";
+  flex: 100;
+}
+
+.popup::after {
+  content: "";
+  flex: 200;
+}
+
+
+/* ################ */
+/* #### Footer #### */
+/* ################ */
+
+#creditsFooter {
+  display: flex;
+}
+#newFade {
+  order: 1;
+}
+
+/* ################ */
+/* #### Editor #### */
+/* ################ */
+
+#editorCont {
+  background-color: rgb(72, 72, 72);
+  transition: 0.3s;
+  width: 0;
+  box-sizing: border-box;
+  border-left: 0px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#editorCont.open {
+  border-left: 12px solid rgb(105, 105, 105);
+  width: 400px;
+}
+
+.editing .block.inEditor {
+  background-color: rgba(0, 136, 255, 0.23);
+}
+
+.editing .block.navSelected {
+  background-color: rgba(255, 136, 136, 0.23);
+}
+
+.editing .columns:hover {
+  background-color: rgba(0, 4, 254, 0.18);
+}
+
+#creditsCont .block.hover {
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+#creditsCont .block {
+  position: relative;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  transition: 0.2s;
+}
+
+#creditsCont .columns > .block.hover {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+#creditsCont .columns > .block {
+  margin-right: 0px;
+}
+
+#creditsCont .addNewButAfter,
+#creditsCont .addNewButBefore {
+  position: absolute;
+  width: 100%;
+  height: 2em;
+  bottom: -2em;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#creditsCont .addNewButBefore {
+  top: -2em;
+  bottom: unset;
+}
+
+#creditsCont .addNewButPlus {
+  height: 1.3em;
+  width: 1.3em;
+  background-image: url(assets/plus.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border-radius: 100%;
+  box-shadow: rgb(64, 64, 64) 0px 1px 5px -3px;
+  transition: 0.1s;
+  margin: auto;
+}
+
+#creditsCont .columns > .block .addNewButAfter {
+  width: 1.5em;
+  height: 100%;
+  bottom: 0;
+  right: -1.5em;
+  left: unset;
+}
+
+#creditsCont .columns > .block .addNewButBefore {
+  width: 1.5em;
+  height: 100%;
+  top: 0;
+  left: -1.5em;
+  right: unset;
+}
+
+#creditsCont .addNewButPlus:hover {
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.editing #editButton, #navDelete {
+  background-color: rgb(208, 0, 0);
+}
+
+.editing .block:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+.editorImg,
+.editorImgGrouped {
+  max-width: 80%;
+  padding: 10%;
+}
+
+#editorCont header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settingProperty,
+.editorProperty {
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px;
+  flex-shrink: 0;
+}
+.settingPropCont,
+.editorPropCont {
+  max-height: 0px;
+  background-color: black;
+  transition: 0.3s;
+  display: flex;
+}
+.active .settingPropCont,
+.active .editorPropCont {
+  max-height: 100%;
+}
+.settingProp,
+.editorProp {
+  margin: 5px;
+  flex: 1;
+  width: calc(100% - 10px);
+  padding: 3px;
+}
+.settingRulePair,
+.editorNamesPair {
+  column-count: 2;
+  column-gap: 0px;
+}
+.editorNameGroup {
+  break-inside: avoid;
+}
+
+#editorProp_image,
+#editorProp_names,
+#editorProp_text,
+.settingPropCont {
+  flex-direction: column;
+}
+.editorNewGroup,
+.settingNewGroup {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+.editorNewRole,
+.editorNewName,
+.settingNewRule {
+  flex: 1;
+}
+#editorColsBut {
+  width: 100%;
+}
+#editorCont button.editorNewPairName,
+#editorCont button.editorNewText,
+#editorCont button.editorNewImage {
+  background-image: url(assets/plus.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  height: 1em;
+  margin: 0;
+  display: block;
+}
+
+.editorNewImage {
+  margin-bottom: 6px !important;
+}
+
+.editorInput_text {
+  max-width: calc(100% - 10px);
+  min-width: calc(100% - 10px);
+  flex: auto;
+}
+
+.dragging {
+  position: absolute;
+  width: calc(100% - 20px);
+}
+
+.dragging header > * {
+  pointer-events: none;
+}
+
+/* ############### */
+/* #### Fonts #### */
+/* ############### */
+
+header *,
+footer *,
+header,
+footer,
+.popup,
+#editorCont {
+  font-family: Ubuntu;
+}
+
+@font-face {
+  font-family: "Libre Caslon Text";
+  src: url("assets/fonts/librecaslontext-regular.otf");
+}
+
+@font-face {
+  font-family: "Libre Caslon Italic";
+  src: url("assets/fonts/librecaslontext-italic.otf");
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: url("assets/fonts/Ubuntu-Medium.ttf");
+}
+
+/* ################# */
+/* #### Columns #### */
+/* ################# */
+
+.cols1 > *.hover {
+  width: calc(100% - 3em);
+  min-width: calc(100% - 3em);
+}
+
+.cols2 > *.hover {
+  width: calc(50% - 3em);
+  min-width: calc(50% - 3em);
+}
+
+.cols3 > *.hover {
+  width: calc(33% - 3em);
+  min-width: calc(33% - 3em);
+}
+
+.cols4 > *.hover {
+  width: calc(25% - 3em);
+  min-width: calc(25% - 3em);
+}
+
+.cols5 > *.hover {
+  width: calc(20% - 3em);
+  min-width: calc(20% - 3em);
+}
+
+.cols6 > *.hover {
+  width: calc(16.6% - 3em);
+  min-width: calc(16.6% - 3em);
+}
+
+#editorCont::after {
+  content: "";
+  padding: 5px;
+  order: 100;
+}
+
+.editorNewText {
+  margin-bottom: 6px !important;
+}
+
+.editorNameInput.editorProp {
+  margin: 0 5px;
+}
+
+nav {
+  opacity: 0;
+  z-index: -1;
+  position: fixed;
+  background-color: rgb(39, 39, 39);
+  box-shadow: rgb(0, 0, 0) 0px 0px 7px 0px;
+  border-radius: 10px;
+  padding: 10px;
+  transition: top 0s 0.2s, left 0s 0.2s, opacity 0.2s;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0px;
+}
+nav > button {
+  margin-bottom: 10px;
+}
+
+.navActive {
+  opacity: 1;
+  z-index: 1;
+  transition: top 0s, left 0s, opacity 0.2s;
+}
+
+.navDelete #navMoveUp,
+.navDelete #navMoveDown {
+  display: none;
+}
+
+.navMove #navDelete {
+  display: none;
+}
+
+.navNoUp #navMoveUp {
+  display: none;
+}
+
+.navNoDown #navMoveDown {
+  display: none;
+}
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.navActive.above::after {
+  position: absolute;
+  content: "";
+  left: 50%;
+  bottom: 0;
+  width: 0px;
+  height: 0px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid rgb(39, 39, 39);
+  transform: translate(-50%, 100%);
+}
+
+.navActive.bellow::after {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 0;
+  width: 0px;
+  height: 0px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid rgb(39, 39, 39);
+  transform: translate(-50%, -100%);
+}
+
+#toutorial > div {
+  max-width: 600px;
+}
