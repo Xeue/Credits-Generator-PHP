@@ -614,6 +614,7 @@ input[type="checkbox"]::before {
   align-items: center;
   transition: 0.3s;
   background: transparent;
+  /*! border-top: 1px solid rgb(47, 47, 47); */
 }
 
 .settingProperty,
@@ -623,7 +624,16 @@ input[type="checkbox"]::before {
   margin: 10px;
   flex-shrink: 0;
   margin-bottom: 0px;
+  border-top: 1px solid transparent;
 }
+
+.settingProperty.active,
+.editorProperty.active,
+.settingProperty:hover,
+.editorProperty:hover {
+  border-top: 1px solid rgb(47, 47, 47)
+}
+
 .settingPropCont,
 .editorPropCont {
   max-height: 0px;
