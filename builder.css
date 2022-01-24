@@ -320,9 +320,13 @@ input[type="checkbox"]::before {
 .popup footer {
   display: flex;
 }
-.popup header {
-  padding-left: 14px;
-  width: calc(100% - 21px);
+.popup header,
+.popup footer {
+  width: calc(100% - 14px);
+  border-radius: 0;
+  border-top: 0;
+  background: rgb(41, 40, 40);
+  margin: 0;
 }
 
 .popup footer button {
