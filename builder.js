@@ -211,7 +211,7 @@ function openMenu(e) {
     $nav.css("left", left+"px");
     $nav.addClass("navActive");
     $nav.removeClass("navMove");
-    if ($ele.siblings(".editorProp").length = 0) {
+    if ($ele.siblings(".editorProp").length == 0) {
       $nav.addClass("navDelete");
     } else {
       $nav.removeClass("navDelete");
@@ -250,8 +250,8 @@ function openMenu(e) {
     let top = $ele.offset().top - navHeight - 10;
     $nav.css("top", top+"px");
   } else if ($block.length != 0 && $("html").hasClass("editing")) {
-    $nav.removeClass("bellow")
-    $nav.removeClass("above")
+    $nav.removeClass("bellow");
+    $nav.removeClass("above");
     $nav.css("top", e.pageY-60+"px");
     $nav.css("left", left+"px");
     $nav.addClass("navActive");
@@ -310,7 +310,7 @@ function selectForMenu($ele, prop) {
           $($nameGroup[subIndex]).addClass("navSelected");
         } else {
           if (type == "role") {
-            $($names[index]).addClass("navSelected")
+            $($names[index]).addClass("navSelected");
           } else if ($ele.siblings().length != 1) {
             $($names[index]).find("."+type).addClass("navSelected");
           } else {
@@ -371,6 +371,14 @@ function updateSettings() {
 }
 
 function settingsOpen() {
+  $("html").removeClass("editing");
+
+  if ($("html").hasClass("settings")) {
+    $("#editorCont").removeClass("open");
+    $("html").removeClass("settings");
+    return;
+  }
+  $("html").addClass("settings");
   $(".inEditor").removeClass("inEditor");
   let $editor = $("#editorCont");
   $editor.html("");
@@ -489,7 +497,7 @@ $(document).ready(function() {
 
   $("#loadFile").change(function(){
     let versionString = String($(this).find(":selected").data("versions"));
-    let versions = new Array();
+    let versions = [];
     versions = versionString.split(",");
     $("#loadVersion").html("");
     for (var i = 0; i < versions.length; i++) {
@@ -500,8 +508,8 @@ $(document).ready(function() {
     $("#loadVersion").val(versions.length);
     $load = $("#loadVersionBut");
     $load.html("");
-    for (var i = 0; i < versions.length; i++) {
-      $load.append($("<option value='"+versions[i]+"'>"+versions[i]+"</option>"));
+    for (var j = 0; j < versions.length; j++) {
+      $load.append($("<option value='"+versions[j]+"'>"+versions[j]+"</option>"));
     }
     $load.append($("<option value='new'>New Version</option>"));
   });
@@ -512,7 +520,7 @@ $(document).ready(function() {
 
   $("#loadFileBut").change(function(){
     let versionString = String($(this).find(":selected").data("versions"));
-    let versions = new Array();
+    let versions = [];
     versions = versionString.split(",");
     $load = $("#loadVersionBut");
     $load.html("");
@@ -529,10 +537,17 @@ $(document).ready(function() {
   });
 
   $("#editButton").click(function() {
-    $("html").toggleClass("editing");
-    if (!$("html").hasClass("editing")) {
+
+    $("html").removeClass("settings");
+
+    if ($("html").hasClass("editing")) {
       $("#editorCont").removeClass("open");
+      $("html").removeClass("editing");
+      return;
     }
+
+    $("html").addClass("editing");
+    $("#editorCont").html('<div style="padding: 20px;text-align: center;">Select a block to start editing</div>');
   });
 
   $("#uploadButton").click(function() {
@@ -578,7 +593,7 @@ $(document).ready(function() {
       version = $("#loadVersionBut").val();
     } else {
       project = $("#saveNewProject").val();
-      let projects = new Array();
+      let projects = [];
       projects = $("#loadFile").data("projects").split(",");
       if (projects.includes(project)) {
         alert("There is already a project with this name!");
@@ -616,11 +631,11 @@ $(document).ready(function() {
           data = JSON.parse(result);
           if (data.type == "success") {
             let project = data.project;
-            let projects = new Array();
+            let projects = [];
             projects = $("#loadFile").data("projects").split(",");
 
             let version = data.version;
-            let versions = new Array();
+            let versions = [];
             if (data.version == 1) {
               versions = ["1"];
             } else {
@@ -684,7 +699,7 @@ $(document).ready(function() {
       project = $("#uploadFileBut").val();
     } else {
       project = $("#uploadNewProject").val();
-      let projects = new Array();
+      let projects = [];
       projects = $("#loadFile").data("projects").split(",");
       if (projects.includes(project)) {
         alert("There is already a project with this name!");
@@ -850,7 +865,6 @@ $(document).ready(function() {
       }
     } else if ($target.is("#settings")) {
       settingsOpen();
-      $("html").addClass("settings");
     } else if ($target.is("#run")) {
       initRunInBrowser();
     } else if ($target.hasClass("settingNewRule")) {

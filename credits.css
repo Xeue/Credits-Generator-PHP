@@ -84,7 +84,8 @@ body {
 #creditsLogos .text {
   text-align: center;
   max-width: 49%;
-  margin: auto;
+  /*! margin: auto; */
+  margin-top: 1em;
 }
 
 #creditsLogos .block {
@@ -180,7 +181,7 @@ body {
 
 .image {
   max-width: 75%;
-  margin: auto;
+  /*! margin: auto; */
 }
 
 .cols1 > * {

@@ -53,7 +53,12 @@
               echo "<option value='$version'>$version</option>";
             }
           ?>
-        </select><button id="loadButton">
+        </select>
+        <button id="newButton">
+          New
+        </button><button id="saveButton">
+          Save
+        </button><button id="loadButton">
           Load
         </button><button id="uploadButton">
           Upload
@@ -63,14 +68,11 @@
           Download
         </button><button id="downloadImgButton">
           Download Images
-        </button><button id="help">
-          Help
         </button>
-        <button id="newButton">New</button>
-        <button id="saveButton">Save</button>
-        <button id="editButton">Edit</button>
-        <button id="settings">Settings</button>
-        <button id="run">Run in Browser</button>
+        <button id="help" class="right">Help</button>
+        <button id="run" class="right">Run in Browser</button>
+        <button id="editButton" class="right">Edit</button>
+        <button id="settings" class="right">Settings</button>
       </header>
 
       <div id="creditsScroller">
