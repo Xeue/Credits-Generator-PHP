@@ -154,25 +154,28 @@
 
       <div id="toutorial" class="hidden popup">
         <div>
-          <header id="tutHead">Toutorial</header>
+          <header id="tutHead">Help/Info</header>
           <section id="tutBody">
-            This page is designed to be used with the CasparCG credits template avaiable via the download template button.</br>
-            When the credits are complete you can load them into caspar by downloading them as a file,</br>
-            or by using the URL in the following format:</br>
-            credits.stagtv.co.uk/saves/PROJECT/VERSION.js</br>
-            </br>
-            Settings for the credits can be changed in the settings menu, these are in the form of CSS rules:</br>
-            <a href="https://www.w3schools.com/cssref/">https://www.w3schools.com/cssref/</a></br>
-            </br>
-            To make changes to the credids, click on the edit button, then click on the "block" you want to edit,</br>
-            from there properties of the block can be turned on and off and their values edited.</br>
-            For names a roles, if you paste in a comma seperated list, it will automatically split them into seperate entries.</br>
-            Click and drag to re-order the properties.</br>
-            </br>
-            You can right click on various things to move them or delete them.</br>
+            This page is designed to be used with the CasparCG credits template avaiable via the download template button (Not added yet...).<br>
+            When the credits are complete you can load them into caspar by downloading them as a file, or by using the URL in the following format:<br>
+            <?=$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI]?>saves/PROJECT/VERSION.js<br>
+            <br>
+            These credits can also be run from in borwser, simply click the "Run in Browser" button. This will create a pupup window with some controls.<br>
+            <br>
+            Settings for the credits can be changed in the settings menu, these are in the form of CSS rules:
+            <a href="https://www.w3schools.com/cssref/">https://www.w3schools.com/cssref/</a><br>
+            <br>
+            To make changes to the credits, click on the edit button, then click on the "block" you want to edit,
+            from there properties of the block can be turned on and off and their values edited.<br>
+            For names a roles, if you paste in a comma seperated list, it will automatically split them into seperate entries.<br>
+            Click and drag to re-order the properties.<br>
+            <br>
+            You can right click on various things to move them or delete them.<br>
+            <br>
+            If that doesn't make any sense, you find any bugs or generally want to ask questions you can get in contact via: <a href="mailto:sam@chilton.tv">sam@chilton.tv</a>
           </section>
           <footer id="tutFoot">
-            <button id="tutClose" type="button">Close</button>
+            <button id="tutClose" type="button">Got it!</button>
           </footer>
         </div>
       </div>

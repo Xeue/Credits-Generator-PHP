@@ -338,6 +338,17 @@ input[type="checkbox"]::before {
   border: 1px rgb(42, 42, 42) solid;
 }
 
+#tutHead {
+  padding: 11px;
+}
+
+#tutBody {
+  font-size: 12pt;
+}
+#tutClose {
+  margin-left: 0;
+}
+
 #uploadFileBut {
   width: 100%;
 }
