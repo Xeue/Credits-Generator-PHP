@@ -57,7 +57,7 @@ function makeObject(element) {
       if (image == "../../../assets/Placeholder.jpg") {
         object.image = "../../../assets/Placeholder.jpg";
       } else {
-        let search = "saves/"+$("#loadFile").find(":selected").val()+"/";
+        let search = "saves/"+$("#loadFile").find(":selected").val()+"/logo/";
         object.image = image.substring(search.length);
       }
     } else if ($(this).hasClass("imageGroup")) {
@@ -71,7 +71,7 @@ function makeObject(element) {
         if (image == "../../../assets/Placeholder.jpg") {
           imageGroup.push("../../../assets/Placeholder.jpg");
         } else {
-          let search = "saves/"+$("#loadFile").find(":selected").val()+"/";
+          let search = "saves/"+$("#loadFile").find(":selected").val()+"/logo/";
           imageGroup.push(image.substring(search.length));
         }
       });
@@ -811,7 +811,7 @@ $(document).ready(function() {
       $("#creditsScroller").addClass("hidden");
       $("#creditsLogos").removeClass("hidden");
       $(".endFadeGroup").addClass("hidden");
-      let $tab = $("<div class='endFadeGroup' id='fadeCont"+num+"'><section class='block'><div class='spacing' style='height:8em'></div></section></div>");
+      let $tab = $("<div class='endFadeGroup' id='fadeCont"+num+"'><section class='block'><div class='title'>Placeholder Title</div></section></div>");
       $("#creditsLogos").append($tab);
     } else if ($target.parent().hasClass("addNewButBefore") || $target.parent().hasClass("addNewButAfter")) {
       let $newBlock = $("<section class='block'><div class='spacing' style='height:8em'></div></section>");

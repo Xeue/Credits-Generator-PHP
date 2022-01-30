@@ -75,7 +75,7 @@ function editorMakeProperty($json, prop, state, index) {
       let $inputImg = $("<input class='editorProp' id='editorInput_imageHeight'>");
       let $minusImg = $("<button class='editorMinus' id='editorMinus_imageHeight'>-</button>");
       if (state == "active") {
-        $inputImg.val($json["imageHeight"]);
+        $inputImg.val($json.imageHeight);
       } else {
         $inputImg.val(24);
       }
@@ -89,22 +89,48 @@ function editorMakeProperty($json, prop, state, index) {
         for (var i = 0; i < imgs.length; i++) {
           let $img = $("<img class='editorImgGrouped img_"+i+"' id='editorImg_"+prop+"'>");
           if (state == "active") {
-            let src = "saves/"+$("#loadFile").find(":selected").val()+"/"+imgs[i];
+            let src = "saves/"+$("#loadFile").find(":selected").val()+"/logo/"+imgs[i];
             $img.attr("src", src);
           }
-          let $imgPath = $("<input class='editorProp img_"+i+"' id='editorInput_"+prop+"'>");
-          $imgPath.val(imgs[i]);
-          $edit.append($imgPath);
+
+          $imgSelect = $("<select class='editorProp img_"+i+"' data-imgnum='"+i+"' id='editorInput_"+prop+"'></select>");
+          let project = $("#loadFileBut").val();
+          let projImages = images[project];
+          for (var projImg in projImages) {
+            if (projImages.hasOwnProperty(projImg)) {
+              let $imgOpt;
+              if (projImages[projImg] == imgs[i]) {
+                $imgOpt = $(`<option selected value='${projImages[projImg]}'>${projImages[projImg]}</option>`);
+              } else {
+                $imgOpt = $(`<option value='${projImages[projImg]}'>${projImages[projImg]}</option>`);
+              }
+              $imgSelect.append($imgOpt);
+            }
+          }
+          $edit.append($imgSelect);
           $edit.append($img);
         }
       } else {
         let $img = $("<img class='editorImg' id='editorImg_"+prop+"'>");
         if (state == "active") {
-          let src = "saves/"+$("#loadFile").find(":selected").val()+"/"+imgs;
+          let src = "saves/"+$("#loadFile").find(":selected").val()+"/logo/"+imgs;
           $img.attr("src", src);
         }
-        $input.val($json[prop]);
-        $edit.append($input);
+        let $imgSelect = $("<select class='editorProp img_1' data-imgnum='1' id='editorInput_"+prop+"'></select>");
+        let project = $("#loadFileBut").val();
+        let projImages = images[project];
+        for (var projImage in projImages) {
+          if (projImages.hasOwnProperty(projImage)) {
+            let $imgOpt;
+            if (projImages[projImage] == $json[prop]) {
+              $imgOpt = $(`<option selected value='${projImages[projImage]}'>${projImages[projImage]}</option>`);
+            } else {
+              $imgOpt = $(`<option value='${projImages[projImage]}'>${projImages[projImage]}</option>`);
+            }
+            $imgSelect.append($imgOpt);
+          }
+        }
+        $edit.append($imgSelect);
         $edit.append($img);
       }
       let $newImg = $("<button class='editorNewImage'></button>");
@@ -348,9 +374,9 @@ function updateBlock($element, value) {
       break;
     case "image":
       let $next = $element.next();
-      path = "saves/"+$("#loadFile").find(":selected").val()+"/"+value;
+      path = "saves/"+$("#loadFile").find(":selected").val()+"/logo/"+value;
       if ($next.hasClass("editorImgGrouped")) {
-        let index = $element.parent().children("input").index($element);
+        let index = $element.parent().children("select").index($element);
         $($target[index]).attr("src", path);
       } else {
         $target.attr("src", path);
@@ -474,7 +500,19 @@ $(document).click(function(e) {
     $target.before($newTxtInp);
   } else if ($target.hasClass("editorNewImage")) {
     let $targetBlock = $(".inEditor");
-    let $inpt = $("<input class='editorProp' id='editorInput_image'>");
+
+    let imageNum = $($target.prevAll(".editorProp")[0]).data("imgnum");
+
+    $inpt = $(`<select class='editorProp img_${++imageNum}' id='editorInput_image' data-imgnum='${imageNum}'></select>`);
+    let project = $("#loadFileBut").val();
+    let projImages = images[project];
+    for (var projImg in projImages) {
+      if (projImages.hasOwnProperty(projImg)) {
+        let $imgOpt = $(`<option value='${projImages[projImg]}'>${projImages[projImg]}</option>`);
+        $inpt.append($imgOpt);
+      }
+    }
+
     let $imgPrev = $("<img class='editorImg' id='editorImg_image' src='../../../assets/Placeholder.jpg'>");
     $inpt.val("../../../assets/Placeholder.jpg");
     $target.before($inpt);

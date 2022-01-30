@@ -2,6 +2,7 @@
 
 <?php
   $saves = array_flip(array_diff(scandir("saves"), array('..', '.')));
+  $fonts = array_flip(array_diff(scandir("assets/fonts"), array('..', '.')));
   $savesJson = $saves;
   $savesText = implode(str_replace(".js","",array_diff(scandir("saves"), array('..', '.'))),',');
   function stripLogo($string) {
@@ -14,6 +15,10 @@
     asort($filteredVersions);
     $savesJson[$key] = implode($filteredVersions,',');
     $saves[$key] = $filteredVersions;
+
+    $images = array_diff(scandir("saves/$key/logo"), array('..', '.'));
+    asort($images);
+    $imagesArray[$key] = $images;
   }
 
   $versions = str_replace(".js","",array_reverse(array_values($saves)[0]));
@@ -29,9 +34,24 @@
     <link rel="icon" href="https://i1.wp.com/stagtv.co.uk/wp-content/uploads/2018/08/cropped-stagtv-favicon-1.png?fit=192%2C192" sizes="192x192">
     <link rel="stylesheet" href="credits.css">
     <link rel="stylesheet" href="builder.css">
+    <style>
+      <?php
+        foreach ($fonts as $key => $font) {
+          $fontName = strtok(str_replace("-", " ", $key), '.');
+          ?>
+          @font-face {
+            font-family: "<?=$fontName?>";
+            src: url("assets/fonts/<?=$key?>");
+          }
+        <?php }
+      ?>
+    </style>
     <script src="webcg-framework.umd.js"></script>
     <script src="jquery-3.6.0.js"></script>
     <script src="cookie.js"></script>
+    <script>
+      images = <?=json_encode($imagesArray)?>
+    </script>
     <script src="builder.js"></script>
     <script src="editor.js"></script>
     <script src="credits.js"></script>
