@@ -66,15 +66,10 @@
       <div style="width: 10px;"></div>
       <button class="" onclick="triggerStart()" type="button">Run</button>
       <div style="width: 10px;"></div>
-      <!--<button class="but" onclick="toggleUI()" type="button">Toggle UI</button>-->
       <button class="" onclick="reset()" type="button">Reset</button>
+      <!--<div style="width: 10px;"></div>
+      <button class="" onclick="toggleFull()" type="button">Fullscreen</button>-->
     </div>
-    <!--<div style="height: 10px;"></div>
-    <div class="cont">
-      <input class="but" id="time" type="text"/>
-      <div style="width: 10px;"></div>
-      <button class="but" onclick="setTime()" type="button">Set Time</button>
-    </div>-->
     <script type="text/javascript">
       function triggerStart() {
         if (window.opener) {
@@ -92,6 +87,11 @@
       function reset() {
         if (window.opener) {
           window.opener.postMessage('{"command":"reset"}', "*");
+        }
+      }
+      function toggleFull() {
+        if (window.opener) {
+          window.opener.postMessage('{"command":"full"}', "*");
         }
       }
       function setTime() {

@@ -29,9 +29,9 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>StagTV - Credits Generator</title>
-    <link rel="icon" href="https://i1.wp.com/stagtv.co.uk/wp-content/uploads/2018/08/cropped-stagtv-favicon-1.png?fit=32%2C32" sizes="32x32">
-    <link rel="icon" href="https://i1.wp.com/stagtv.co.uk/wp-content/uploads/2018/08/cropped-stagtv-favicon-1.png?fit=192%2C192" sizes="192x192">
+    <title><?=explode('.', $_SERVER[HTTP_HOST], 2)[1]?> - Credits Generator</title>
+    <link rel="icon" href="assets/clapper.png" sizes="32x32">
+    <link rel="icon" href="assets/clapper.png" sizes="192x192">
     <link rel="stylesheet" href="credits.css">
     <link rel="stylesheet" href="builder.css">
     <style>

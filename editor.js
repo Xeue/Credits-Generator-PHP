@@ -1,13 +1,18 @@
 /*jshint esversion: 6 */
 function editorHover($block) {
-  if ($("html").hasClass("editing")) {
-    let $after = $("<div class='addNewButAfter'><div class='addNewButPlus'></div></div>");
-    $block.append($after);
-    $block.addClass("hover");
-
-    let $before = $("<div class='addNewButBefore'><div class='addNewButPlus'></div></div>");
-    $block.prepend($before);
+  if (!$("html").hasClass("editing")) {
+    return;
   }
+  if ($block.children().length == 0) {
+    return;
+  }
+
+  let $after = $("<div class='addNewButAfter'><div class='addNewButPlus'></div></div>");
+  $block.append($after);
+  $block.addClass("hover");
+
+  let $before = $("<div class='addNewButBefore'><div class='addNewButPlus'></div></div>");
+  $block.prepend($before);
 }
 function editorUnHover($block) {
   if ($("html").hasClass("editing")) {
@@ -82,6 +87,8 @@ function editorMakeProperty($json, prop, state, index) {
       $editImg.append($plusImg);
       $editImg.append($inputImg);
       $editImg.append($minusImg);
+      $label = $("<div class='propertyLabel'>Set max image height:</div>")
+      $edit.append($label);
       $edit.append($editImg);
 
       let imgs = $json[prop];
@@ -407,7 +414,9 @@ function addProp(prop) {
     addBlockMouseOvers();
   }
   if (prop == "image") {
-    $("#editorInput_image").val("../../../assets/Placeholder.jpg");
+    let $imgOpt = $(`<option value='../../../assets/Placeholder.jpg' selected disabled hidden>Select Image</option>`);
+    $("#editorInput_image").append($imgOpt);
+
     $("#editorImg_image").attr("src", "../../../assets/Placeholder.jpg");
   }
 }
@@ -513,8 +522,10 @@ $(document).click(function(e) {
       }
     }
 
+    let $imgOpt = $(`<option value='../../../assets/Placeholder.jpg' selected disabled hidden>Select Image</option>`);
+    $inpt.append($imgOpt);
+
     let $imgPrev = $("<img class='editorImg' id='editorImg_image' src='../../../assets/Placeholder.jpg'>");
-    $inpt.val("../../../assets/Placeholder.jpg");
     $target.before($inpt);
     $target.before($imgPrev);
     $target.parent().children("img").addClass("editorImgGrouped");

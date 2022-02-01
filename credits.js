@@ -3,6 +3,7 @@ var ordering = false;
 var runTime = 60;
 var currentFade = 0;
 var logoCount = 0;
+var timeouts = [];
 
 function endFade(logoCount, logoTotal) {
   let logoCurrent = logoTotal - logoCount;
@@ -144,14 +145,14 @@ function runNextFade() {
   currentFade++;
   if (currentFade < logoCount) {
     $("#fade"+currentFade).trigger("click");
-    setTimeout(function () {
+    timeouts.push(setTimeout(function () {
       runNextFade();
-    }, endFades[currentFade-1].duration*1000);
+    }, endFades[currentFade-1].duration*1000));
   } else if (currentFade == logoCount) {
     $("#fade"+currentFade).trigger("click");
-    setTimeout(function () {
+    timeouts.push(setTimeout(function () {
       $("#fade"+currentFade).addClass("hidden");
-    }, endFades[currentFade-1].duration*1000);
+    }, endFades[currentFade-1].duration*1000));
   }
 }
 
@@ -161,13 +162,13 @@ function runCredits() {
   $('#creditsScroller').css('top', scrollLength);
   if (typeof endFades !== 'undefined') {
     logoCount = endFades.length;
-    setTimeout(function () {
+    timeouts.push(setTimeout(function () {
       $("#fadeCont1").addClass("extraHidden");
-      setTimeout(function () {
+      timeouts.push(setTimeout(function () {
         $("#fadeCont1").removeClass("extraHidden");
-      }, 100);
+      }, 100));
       runNextFade();
-    }, (++runTime)*1000);
+    }, (++runTime)*1000));
   }
 }
 
@@ -184,6 +185,9 @@ function runCommand(event) {
       $("#creditsScroller").toggleClass("noScroll");
       $("#creditsScroller").css("transition", "");
       $("#creditsScroller").css("top", "");
+      $("html").removeClass("editing");
+      $("html").removeClass("settings");
+      $("#editorCont").removeClass("open");
       break;
     case "setTime":
       runTime = parseInt(obj.time);
@@ -194,6 +198,18 @@ function runCommand(event) {
       $("#creditsScroller").removeClass("noScroll");
       $("#creditsScroller").css("transition", "");
       $("#creditsScroller").css("top", "");
+      for (var i=0; i<timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+      }
+      break;
+    case "full":
+      if (window.innerWidth == screen.width && window.innerHeight == screen.height) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      } else {
+        document.getElementsByTagName("html")[0].requestFullscreen();
+      }
       break;
     default:
 

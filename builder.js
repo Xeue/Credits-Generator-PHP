@@ -183,6 +183,9 @@ function savePopup(context) {
 function openMenu(e) {
   $(".navSelected").removeClass("navSelected");
   let $ele = $(document.elementFromPoint(e.pageX, e.pageY));
+  if ($ele.hasClass("editorImg")) {
+    $ele = $ele.prev(".editorProp");
+  }
   let $nav = $("nav");
   let prop = $ele.closest(".editorProperty").data("prop");
   let left = e.pageX;
@@ -196,6 +199,8 @@ function openMenu(e) {
   }
   $nav.removeClass("navNoDown");
   $nav.removeClass("navNoUp");
+  $nav.removeClass("navFade");
+  $nav.removeClass("navBlock");
   if ($ele.hasClass("editorProp") && (prop == "image" || prop == "text" || prop == "names") && !$ele.is("#editorInput_imageHeight")) {
     let top = $ele.offset().top + $ele.outerHeight() + 10;
     if ((top + navHeight - height) > 0) {
@@ -211,7 +216,9 @@ function openMenu(e) {
     $nav.css("left", left+"px");
     $nav.addClass("navActive");
     $nav.removeClass("navMove");
-    if ($ele.siblings(".editorProp").length == 0) {
+    if ($ele.parent().siblings(".editorNamesPair").length != 0) {
+      $nav.removeClass("navDelete");
+    } else if ($ele.siblings(".editorProp").length == 0) {
       $nav.addClass("navDelete");
     } else {
       $nav.removeClass("navDelete");
@@ -235,8 +242,9 @@ function openMenu(e) {
     $nav.addClass("navDelete");
     let setting = $ele.closest(".settingProperty").data("setting");
     $ele.addClass("navSelected");
-  } else if ($ele.hasClass("tabButton") && !$ele.is("#creditsButton") && !$ele.is("#newFade")) {
+  } else if ($ele.hasClass("tabButton") && !$ele.is("#creditsButton") && !$ele.is("#newFade") && $("html").hasClass("editing")) {
     $nav.addClass("above");
+    $nav.addClass("navFade");
     $nav.removeClass("bellow");
     left -= navWidth/2;
     $nav.css("left", left+"px");
@@ -252,6 +260,7 @@ function openMenu(e) {
   } else if ($block.length != 0 && $("html").hasClass("editing")) {
     $nav.removeClass("bellow");
     $nav.removeClass("above");
+    $nav.addClass("navBlock");
     $nav.css("top", e.pageY-60+"px");
     $nav.css("left", left+"px");
     $nav.addClass("navActive");
@@ -837,6 +846,9 @@ $(document).ready(function() {
         }
         updateSettings();
         settingsOpen();
+      }
+      if ($sel.hasClass("inEditor")) {
+        $("#editorCont").html('<div style="padding: 20px;text-align: center;">Select a block to start editing</div>');
       }
       $sel.remove();
     } else if ($target.is("#navMoveUp")) {
