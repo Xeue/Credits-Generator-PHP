@@ -464,6 +464,36 @@ function firstTimeCheck() {
   }
 }
 
+function load() {
+  $("#creditsLogos").html("");
+  $("#creditsScroller").css("transition", "");
+  $("#creditsScroller").css("top", "");
+  if (typeof endFades !== 'undefined') {
+    endFades = undefined;
+  }
+  let $footer = $("#creditsFooter");
+  $footer.data("tabs", 0);
+  $footer.html('<button id="creditsButton" class="tabButton active">Main</button><button id="newFade">+</button>');
+  loadScript("saves/"+$("#loadFile").find(":selected").val()+"/"+$("#loadVersion").find(":selected").val()+".js").then(function() {
+    var html = "";
+    for (var i = 0; i < credits.length; i++) {
+      let subHtml = buildBlock(credits[i]);
+      html += subHtml;
+    }
+    $('#creditsCont').html(html);
+
+    if (typeof endFades !== 'undefined') {
+      var logoCount = endFades.length;
+      var logoTotal = endFades.length;
+      endFade(logoCount, logoTotal);
+    }
+
+    addBlockMouseOvers();
+    updateSettings();
+  });
+  $("#creditsButton").click();
+}
+
 var mouseY = 0;
 var mouseX = 0;
 $(document).mousemove(function(e) {
@@ -475,33 +505,7 @@ $(document).ready(function() {
   firstTimeCheck();
 
   $("#loadButton").click(function() {
-    $("#creditsLogos").html("");
-    $("#creditsScroller").css("transition", "");
-    $("#creditsScroller").css("top", "");
-    if (typeof endFades !== 'undefined') {
-      endFades = undefined;
-    }
-    let $footer = $("#creditsFooter");
-    $footer.data("tabs", 0);
-    $footer.html('<button id="creditsButton" class="tabButton active">Main</button><button id="newFade">+</button>');
-    loadScript("saves/"+$("#loadFile").find(":selected").val()+"/"+$("#loadVersion").find(":selected").val()+".js").then(function() {
-      var html = "";
-      for (var i = 0; i < credits.length; i++) {
-        let subHtml = buildBlock(credits[i]);
-        html += subHtml;
-      }
-      $('#creditsCont').html(html);
-
-      if (typeof endFades !== 'undefined') {
-        var logoCount = endFades.length;
-        var logoTotal = endFades.length;
-        endFade(logoCount, logoTotal);
-      }
-
-      addBlockMouseOvers();
-      updateSettings();
-    });
-    $("#creditsButton").click();
+    load();
   });
 
   $("#loadFile").change(function(){
@@ -521,10 +525,12 @@ $(document).ready(function() {
       $load.append($("<option value='"+versions[j]+"'>"+versions[j]+"</option>"));
     }
     $load.append($("<option value='new'>New Version</option>"));
+    load();
   });
 
   $("#loadVersion").change(function(){
     $("#loadVersionBut").val($("#loadVersion").val());
+    load();
   });
 
   $("#loadFileBut").change(function(){
@@ -783,6 +789,49 @@ $(document).ready(function() {
     let params = {};
     params.project = $("#loadFile").find(":selected").val();
     $("body").append('<iframe style="display:none;" src="getImages.php?project='+$("#loadFile").find(":selected").val()+'"></iframe>');
+  });
+
+  $("#full").click(function() {
+    if (window.innerWidth == screen.width && window.innerHeight == screen.height) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        $("header").removeClass("hidden");
+        $("footer").removeClass("hidden");
+        $("#creditsScroller").removeClass("noScroll");
+        $("#creditsScroller").css("transition", "");
+        $("#creditsScroller").css("top", "");
+        for (var i=0; i<timeouts.length; i++) {
+          clearTimeout(timeouts[i]);
+        }
+      }
+    } else {
+      document.documentElement.requestFullscreen();
+      $("header").toggleClass("hidden");
+      $("footer").toggleClass("hidden");
+      $("#creditsScroller").toggleClass("noScroll");
+      $("#creditsScroller").css("transition", "");
+      $("#creditsScroller").css("top", "");
+      $("html").removeClass("editing");
+      $("html").removeClass("settings");
+      $("#editorCont").removeClass("open");
+    }
+  })
+
+  document.addEventListener("fullscreenchange", function() {
+    if (window.innerWidth == screen.width && window.innerHeight == screen.height) {
+      if (document.exitFullscreen) {
+
+      }
+    } else {
+      $("header").removeClass("hidden");
+      $("footer").removeClass("hidden");
+      $("#creditsScroller").removeClass("noScroll");
+      $("#creditsScroller").css("transition", "");
+      $("#creditsScroller").css("top", "");
+      for (var i=0; i<timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+      }
+    }
   });
 
   $("#tutClose").click(function() {

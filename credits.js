@@ -138,7 +138,7 @@ function loadScript(source) {
 
 
 function initRunInBrowser() {
-  window.open("/run", 1, "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=yes,resizable=yes,width=750,height=70");
+  window.open("/run.php", 1, "directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=yes,resizable=yes,width=750,height=70");
 }
 
 function runNextFade() {
@@ -174,7 +174,6 @@ function runCredits() {
 
 function runCommand(event) {
   obj = JSON.parse(event.data);
-  l(obj);
   switch (obj.command) {
     case "run":
       runCredits();
@@ -183,6 +182,16 @@ function runCommand(event) {
       $("header").toggleClass("hidden");
       $("footer").toggleClass("hidden");
       $("#creditsScroller").toggleClass("noScroll");
+      $("#creditsScroller").css("transition", "");
+      $("#creditsScroller").css("top", "");
+      $("html").removeClass("editing");
+      $("html").removeClass("settings");
+      $("#editorCont").removeClass("open");
+      break;
+    case "hideUI":
+      $("header").addClass("hidden");
+      $("footer").addClass("hidden");
+      $("#creditsScroller").addClass("noScroll");
       $("#creditsScroller").css("transition", "");
       $("#creditsScroller").css("top", "");
       $("html").removeClass("editing");
@@ -208,7 +217,8 @@ function runCommand(event) {
           document.exitFullscreen();
         }
       } else {
-        document.getElementsByTagName("html")[0].requestFullscreen();
+        console.log(document.documentElement);
+        document.documentElement.requestFullscreen();
       }
       break;
     default:

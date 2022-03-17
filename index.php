@@ -78,19 +78,20 @@
           New
         </button><button id="saveButton">
           Save
-        </button><button id="loadButton">
+        </button><button id="loadButton" style="display: none;">
           Load
-        </button><button id="uploadButton">
-          Upload
         </button><button id="uploadImgButton">
           Upload Files
-        </button><button id="downloadButton">
-          Download
         </button><button id="downloadImgButton">
-          Download Images
+          Download Files
+        </button><button id="uploadButton">
+          Import
+        </button><button id="downloadButton">
+          Export
         </button>
         <button id="help" class="right">Help</button>
-        <button id="run" class="right">Run in Browser</button>
+        <button id="full" class="right">Fullscreen</button>
+        <button id="run" class="right">Run</button>
         <button id="editButton" class="right">Edit</button>
         <button id="settings" class="right">Settings</button>
       </header>

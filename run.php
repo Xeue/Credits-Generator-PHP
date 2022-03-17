@@ -75,7 +75,7 @@
         if (window.opener) {
           let time = document.getElementById("time").value;
           window.opener.postMessage('{"command":"setTime","time":'+time+'}', "*");
-          window.opener.postMessage('{"command":"toggleUI"}', "*");
+          window.opener.postMessage('{"command":"hideUI"}', "*");
           window.opener.postMessage('{"command":"run"}', "*");
         }
       }
