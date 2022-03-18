@@ -682,6 +682,10 @@ input[type=checkbox]::before {
   column-gap: 0
 }
 
+.settingRulePair {
+  display: flex;
+}
+
 .editorNameGroup {
   break-inside: avoid
 }

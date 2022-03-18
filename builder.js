@@ -169,7 +169,7 @@ function getCreditsJSON() {
 }
 
 function getDummyJSON() {
-  return "var credits = ["+JSON.stringify(dummyBlock, null, "\t")+"]\n";
+  return "var credits = ["+JSON.stringify(dummyBlock, null, "\t")+"]\n var settings = {'background':{'font-weight':'normal','font-style':'italic', 'background-color':'#000000'},'subTitle':{'margin-top':'5em','margin-bottom':'2em'},'text':{'margin-top':'1em','font-size':'0.8em'},'role':{'font-weight':'bold','font-style':'italic'},'title':{'font-size':'1.2em','font-weight':'bold','margin-top':'2em','margin-bottom':'2em'}}";
 }
 
 function savePopup(context) {
@@ -379,7 +379,36 @@ function updateSettings() {
   }
 }
 
+function listFonts() {
+  let { fonts } = document;
+  const it = fonts.entries();
+
+  let arr = [];
+  let done = false;
+
+  while (!done) {
+    const font = it.next();
+    if (!font.done) {
+      arr.push(font.value[0].family);
+    } else {
+      done = font.done;
+    }
+  }
+
+  // converted to set then arr to filter repetitive values
+  return [...new Set(arr)];
+}
+
 function settingsOpen() {
+  $("html").removeClass("editing");
+
+  if ($("html").hasClass("settings")) {
+    return;
+  }
+  settingsDoOpen();
+}
+
+function settingsToggle() {
   $("html").removeClass("editing");
 
   if ($("html").hasClass("settings")) {
@@ -387,10 +416,57 @@ function settingsOpen() {
     $("html").removeClass("settings");
     return;
   }
+  settingsDoOpen();
+}
+
+function settingsDoOpen() {
   $("html").addClass("settings");
   $(".inEditor").removeClass("inEditor");
   let $editor = $("#editorCont");
   $editor.html("");
+  let dataOptions = [
+    {
+      "prop": "background-color",
+      "name": "Background Colour - rgba(255,255,255,1), #rrggbbaa",
+      "values": ["Black","White","Red","Green","Blue"]
+    },{
+      "prop": "background-image",
+      "name": "Background Image - url(path/to/image)",
+      "values": ["url('saves/"+$("#loadFile").find(":selected").val()+"/logo/IMAGE_NAME.png')"]
+    },{
+      "prop": "color",
+      "name": "Text Colour - rgba(255,255,255,1), #rrggbbaa",
+      "values": ["Black","White","Red","Green","Blue"]
+    },{
+      "prop": "font-family",
+      "name": "Font",
+      "values": listFonts()
+    },{
+      "prop": "font-size",
+      "name": "Font Size - units of px, pt, % & em",
+      "values": ["8pt","10pt","12pt","16pt","20pt","24pt","28pt","32pt","36pt","40pt","44pt","48pt"]
+    },{
+      "prop": "font-weight",
+      "name": "Font Weight - bold, bolder, lighter & normal",
+      "values": ["lighter","normal","bold","bolder"]
+    },{
+      "prop": "font-style",
+      "name": "Font Style - italic & normal",
+      "values": ["italic","normal"]
+    }
+  ];
+  let $dataList = $("<datalist id='CSSList'></datalist>");
+  for (var i = 0; i < dataOptions.length; i++) {
+    let $dataOption = $("<option value='"+dataOptions[i].prop+"'>"+dataOptions[i].name+"</option>");
+    $dataList.append($dataOption);
+    let $optionsList = $("<datalist id='"+dataOptions[i].prop+"'></datalist>");
+    for (var j = 0; j < dataOptions[i].values.length; j++) {
+      let $dataListOption = $("<option value='"+dataOptions[i].values[j]+"'>"+dataOptions[i].values[j]+"</option>");
+      $optionsList.append($dataListOption);
+    }
+    $editor.append($optionsList);
+  }
+  $editor.append($dataList);
   let properties = ["background","title","subTitle","image","text","name","role"];
 
   for (var setting in settings) {
@@ -428,6 +504,7 @@ function settingsMakeProperty(setting, state) {
   let $edit = $("<div class='settingPropCont' id='settingProp_"+setting+"'></div>");
   let $input = $("<input class='settingProp' id='settingInput_"+setting+"'>");
 
+
   let rules = settings[setting];
 
   let $rulesGroup = $("<div class='settingRuleGroup'></div>");
@@ -436,7 +513,7 @@ function settingsMakeProperty(setting, state) {
     if (rules.hasOwnProperty(key)) {
       let value = rules[key];
       let $pair = $("<div class='settingRulePair'></div>");
-      let $key = $("<input class='settingKeyInput settingProp'>");
+      let $key = $("<input class='settingKeyInput settingProp' list='CSSList'>");
       $key.val(key);
       $key.data("prev", key);
       $pair.append($key);
@@ -872,7 +949,7 @@ $(document).ready(function() {
       let $tab = $("<div class='endFadeGroup' id='fadeCont"+num+"'><section class='block'><div class='title'>Placeholder Title</div></section></div>");
       $("#creditsLogos").append($tab);
     } else if ($target.parent().hasClass("addNewButBefore") || $target.parent().hasClass("addNewButAfter")) {
-      let $newBlock = $("<section class='block'><div class='spacing' style='height:8em'></div></section>");
+      let $newBlock = $("<section class='block'></section>");
       if ($target.parent().hasClass("addNewButBefore")) {
         $target.closest(".block").before($newBlock);
       } else {
@@ -904,8 +981,20 @@ $(document).ready(function() {
       let $selected = $(".navSelected");
       if ($selected.hasClass("block")) {
         $selected.after($selected.prev());
-      } else if ($selected.is("#editorInput_image")) {
-
+      } else if ($($selected[1]).hasClass("editorImgGrouped")) {
+        let $element = $($selected[0]);
+        let $targetBlock = $(".inEditor");
+        let $target = $targetBlock.find(".image");
+        let $next = $element.next();
+        if ($element.prev().hasClass("editorImgGrouped")) {
+          if ($next.hasClass("editorImgGrouped")) {
+            let index = $element.parent().children("select").index($element);
+            $($target[index-1]).before($target[index]);
+          } else {
+            $target.prev().before($target);
+          }
+          $element.prev().prev().before($selected);
+        }
       } else if ($selected.closest(".editorPropCont").length == 1) {
         $selected.each(function(){
           $(this).after($(this).prev());
@@ -915,7 +1004,21 @@ $(document).ready(function() {
       let $selected = $(".navSelected");
       if ($selected.hasClass("block")) {
         $selected.next().insertBefore($selected);
-      } else if ($selected.is("#editorInput_image")) {
+      } else if ($($selected[1]).hasClass("editorImgGrouped")) {
+        let $element = $($selected[0]);
+        let $targetBlock = $(".inEditor");
+        let $target = $targetBlock.find(".image");
+        let $next = $element.next();
+
+        if ($element.next().length > 0) {
+          if ($next.hasClass("editorImgGrouped")) {
+            let index = $element.parent().children("select").index($element);
+            $($target[index+1]).after($target[index]);
+          } else {
+            $target.next().after($target);
+          }
+          $element.next().next().next().after($selected);
+        }
 
       } else if ($selected.closest(".editorPropCont").length == 1) {
         $selected.each(function(){
@@ -925,13 +1028,13 @@ $(document).ready(function() {
         });
       }
     } else if ($target.is("#settings")) {
-      settingsOpen();
+      settingsToggle();
     } else if ($target.is("#run")) {
       initRunInBrowser();
     } else if ($target.hasClass("settingNewRule")) {
       let $group = $target.parent().prev();
       let $pair = $("<div class='settingRulePair'></div>");
-      let $key = $("<input class='settingKeyInput settingProp' placeholder='Placeholder' data-prev='Placeholder'>");
+      let $key = $("<input class='settingKeyInput settingProp' placeholder='Placeholder' data-prev='Placeholder' list='CSSList'>");
       let $value = $("<input class='settingValueInput settingProp' placeholder='Placeholder' data-prev='Placeholder'>");
       $pair.append($key);
       $pair.append($value);
@@ -972,6 +1075,7 @@ $(document).ready(function() {
       $target.data("prev", value);
       delete cls[prev];
       cls[value] = $target.next().val();
+      $target.next().attr("list", value);
       updateSettings();
       settingsOpen();
     } else if ($target.hasClass("settingValueInput")) {
