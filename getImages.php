@@ -8,14 +8,14 @@ $archive_file_name = $project."_images.zip";
 //Download Files path
 $file_path = $_SERVER['DOCUMENT_ROOT']."/saves/".$project."/logo/";
 
+zipFilesAndDownload($archive_file_name,$file_path);
 
-zipFilesAndDownload($file_names,$archive_file_name,$file_path);
-
-function zipFilesAndDownload($file_names,$archive_file_name,$file_path) {
+function zipFilesAndDownload($archive_file_name,$file_path) {
     $zip = new ZipArchive();
     //create the file and throw the error if unsuccessful
     if ($zip->open($archive_file_name, ZIPARCHIVE::CREATE )!==TRUE) {
         exit("cannot open <$archive_file_name>\n");
+        echo "Error, cannot create ZIP";
     }
     //add each files of $file_name array to archive
 
