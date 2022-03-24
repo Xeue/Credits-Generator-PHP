@@ -82,8 +82,8 @@
           Load
         </button><button id="uploadImgButton">
           Upload Files
-        </button><button id="downloadImgButton">
-          Download Files
+        </button><button id="downloadMultiButton">
+          Download
         </button><button id="uploadButton">
           Import
         </button><button id="downloadButton">
@@ -105,9 +105,30 @@
 
       </div>
 
+      <div id="downloadsPopup" class="hidden popup">
+        <form id="downloadForm" action="/" method="POST">
+          <header id="downloadHead">Download</header>
+          <section id="downloadBody">
+            <div id="downloadImg" class="selected selectable">
+              Download Images
+            </div>
+            <div id="downloadFonts" class="selectable">
+              Download Fonts
+            </div>
+            <div id="downloadTemplate" class="selectable">
+              Download Caspar Template
+            </div>
+          </section>
+          <footer id="downloadFoot">
+            <button id="downloadButDone" type="button">Download</button>
+            <button id="downloadButCancel" type="button">Cancel</button>
+          </footer>
+        </form>
+      </div>
+
       <div id="newSave" class="hidden popup">
         <form id="saveForm" action="/" method="POST">
-          <header id="saveHead">Upload</header>
+          <header id="saveHead">Import</header>
           <section id="saveBody">
             <div id="saveFile" class="hidden">
               <input type="file" id="saveUpload" name="uploadJSON">

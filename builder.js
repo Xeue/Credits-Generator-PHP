@@ -647,7 +647,7 @@ $(document).ready(function() {
     $("#saveNew").addClass("selected");
     $("#saveExisting").removeClass("selected");
     $("#saveExisting").removeClass("hidden");
-    savePopup("Upload");
+    savePopup("Import");
   });
   $("#saveButton").click(function() {
     $("#saveFile").addClass("hidden");
@@ -666,6 +666,39 @@ $(document).ready(function() {
 
   $("#uploadImgButton").click(function() {
     $("#uploadImg").toggleClass("hidden");
+  });
+
+  $("#downloadMultiButton").click(function() {
+    $("#downloadsPopup").toggleClass("hidden");
+  });
+
+  $("#downloadButCancel").click(function() {
+    $("#downloadsPopup").toggleClass("hidden");
+  });
+
+  $("#downloadButDone").click(function() {
+    $("#downloadsPopup").toggleClass("hidden");
+    if ($("#downloadImg").hasClass("selected")) {
+      $("body").append('<iframe style="display:none;" src="getImages.php?project='+$("#loadFile").find(":selected").val()+'"></iframe>');
+    }
+    if ($("#downloadFonts").hasClass("selected")) {
+      $("body").append('<iframe style="display:none;" src="getFonts.php?project='+$("#loadFile").find(":selected").val()+'"></iframe>');
+    }
+    if ($("#downloadTemplate").hasClass("selected")) {
+      $("body").append('<iframe style="display:none;" src="getTemplate.php?project='+$("#loadFile").find(":selected").val()+'&version='+$("#loadVersion").find(":selected").val()+'"></iframe>');
+    }
+  });
+
+  $("#downloadTemplate").click(function() {
+    $("#downloadTemplate").toggleClass("selected");
+  });
+
+  $("#downloadFonts").click(function() {
+    $("#downloadFonts").toggleClass("selected");
+  });
+
+  $("#downloadImg").click(function() {
+    $("#downloadImg").toggleClass("selected");
   });
 
   $("#saveButCancel").click(function() {

@@ -352,6 +352,15 @@ input[type=checkbox]::before {
   pointer-events: none
 }
 
+.selectable {
+  margin-bottom: 10px;
+}
+
+.selectable:last-child {
+  margin-bottom: 0;
+}
+
+.selectable select,
 #saveExisting select,
 #saveNew select,
 #uploadExisting select,
@@ -362,6 +371,7 @@ input[type=checkbox]::before {
   transition: .3s
 }
 
+.selectable.selected select,
 #saveExisting.selected select,
 #saveNew.selected select,
 #uploadExisting.selected select,
@@ -371,6 +381,7 @@ input[type=checkbox]::before {
   background-color: #111
 }
 
+.selectable.selected *,
 #saveExisting.selected *,
 #saveNew.selected *,
 #uploadExisting.selected *,
@@ -388,6 +399,7 @@ input[type=checkbox]::before {
   margin-bottom: 10px
 }
 
+.selectable,
 #saveExisting,
 #saveNew,
 #uploadExisting,
@@ -403,6 +415,7 @@ input[type=checkbox]::before {
   transition: .3s
 }
 
+.selectable.selected,
 #saveExisting.selected,
 #saveNew.selected,
 #uploadExisting.selected,
@@ -413,6 +426,7 @@ input[type=checkbox]::before {
   padding-left: 15px
 }
 
+.selectable.selected::before,
 #saveExisting.selected::before,
 #saveNew.selected::before,
 #uploadExisting.selected::before,
@@ -420,6 +434,7 @@ input[type=checkbox]::before {
   width: 5px
 }
 
+.selectable::before,
 #saveExisting::before,
 #saveNew::before,
 #uploadExisting::before,
@@ -437,7 +452,8 @@ input[type=checkbox]::before {
 
 #creditsButton,
 #saveButSave,
-#uploadButSave {
+#uploadButSave,
+#downloadButDone {
   margin: 0 !important
 }
 

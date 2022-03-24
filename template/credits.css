@@ -2,25 +2,29 @@ html {
   /* Explicitly set background color */
   background-color: #0000;
   opacity: 0;
+
   /* Set default box-sizing to border-box for easier sizing of elements */
   box-sizing: border-box;
+
   /* Disable scrollbars by clipping page overflow */
   overflow: hidden;
+
   /* Set default font family */
-  font-family: montserrat, sans-serif;
+  font-family: "Libre Caslon Text";
+
   /* Set responsive root font size to 43.2px at 1080p */
   font-size: 3vh;
+
   color: white;
   scroll-behavior: smooth;
   transition: 1s;
 }
 
-.columns .subTitle {
+.list .subTitle {
   margin-top: 2em;
 }
 
 .background {
-  background-color: black;
   opacity: 1;
 }
 
@@ -38,7 +42,7 @@ body {
 
 #creditsCont {
   text-align: center;
-  width: 60vw;
+  width: 60%;
   margin: auto;
   padding-top: 100vh;
 }
@@ -80,7 +84,6 @@ body {
   text-align: center;
   max-width: 49%;
   margin: auto;
-  margin-top: 1em;
 }
 
 #creditsLogos .block {
@@ -101,21 +104,19 @@ body {
 }
 
 .imageGroup .image {
-  /*! margin: unset; */
+  margin: unset;
 }
 
 .subTitle,
 .role {
-  font-family: montserrat, sans-serif;
-  font-weight: bold;
-  font-style: italic;
+  font-family: "Libre Caslon Italic";
 }
 
-.image~.names {
+.image ~ .names {
   margin-top: 3em;
 }
 
-.imageGroup .image~.image {
+.imageGroup .image ~ .image {
   margin-left: 3em;
 }
 
@@ -132,48 +133,42 @@ body {
   margin-top: 2em;
 }
 
+
 .block {
   display: flex;
   flex-direction: column;
 }
 
-.columns {
+.list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .subTitle {
   margin-bottom: 2em;
   margin-top: 5em;
   font-size: 0.8em;
 }
-
-.image~.subTitle {
+.image ~ .subTitle {
   margin-top: 2em;
 }
-
 .pair {
   display: flex;
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
-.pair>* {
+.pair > * {
   flex: 1;
 }
-
-.pair>.name,
-.pair>.nameGroup {
+.pair > .name,
+.pair > .nameGroup {
   text-align: left;
   margin-left: 0.4em;
 }
-
-.pair>.role {
+.pair > .role {
   text-align: right;
   margin-right: 0.4em;
 }
-
 .text {
   margin-top: 1em;
   font-size: 0.8em;
@@ -183,37 +178,36 @@ body {
 .image {
   max-width: 75%;
   margin: auto;
-  height: fit-content;
 }
 
-.cols1>* {
+.cols1 > * {
   width: 100%;
   min-width: 100%;
 }
 
-.cols2>* {
-  width: calc(50% - 20px) !important;
-  min-width: calc(50% - 20px);
+.cols2 > * {
+  width: 50%;
+  min-width: 50%;
 }
 
-.cols3>* {
-  width: calc(33% - 20px) !important;
-  min-width: calc(33% - 20px);
+.cols3 > * {
+  width: 33%;
+  min-width: 33%;
 }
 
-.cols4>* {
-  width: calc(25% - 20px) !important;
-  min-width: calc(25% - 20px);
+.cols4 > * {
+  width: 25%;
+  min-width: 25%;
 }
 
-.cols5>* {
-  width: calc(20% - 20px) !important;
-  min-width: calc(20% - 20px);
+.cols5 > * {
+  width: 20%;
+  min-width: 20%;
 }
 
-.cols6>* {
-  width: calc(16.6% - 20px) !important;
-  min-width: calc(16.6% - 20px);
+.cols6 > * {
+  width: 16.6%;
+  min-width: 16.6%;
 }
 
 .stay {
