@@ -868,6 +868,9 @@ $(document).ready(function() {
           }
         }
       }
+    }).done(function(data) {
+      let result = JSON.parse(data);
+      images = result.images;
     });
 
     $("#uploadImg").toggleClass("hidden");

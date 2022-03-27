@@ -458,6 +458,9 @@ function orderEditor(curIndex, newIndex) {
   }
 
   let $old = $block.children("."+typeOld);
+  if ($old.length == 0 && typeOld == "image") {
+    $old = $block.children(".imageGroup");
+  }
   let $new = $block.children("."+typeNew);
 
   if (curIndex > newIndex && newIndex != 0) {

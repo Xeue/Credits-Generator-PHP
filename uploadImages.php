@@ -1,6 +1,6 @@
 <?php
-
 if (isset($_FILES['images'])) {
+  $return;
   $project = $_POST['project'];
 
   if ($_POST['new'] == "true") {
@@ -32,9 +32,10 @@ if (isset($_FILES['images'])) {
     	}
     ]';
     file_put_contents("1.js", $data);
-    echo '{"type":"success", "new":true, "project":"'.$project.'"}';
+    $return["new"] = true;
+    $return["project"] = $project;
   } else {
-    echo '{"type":"success", "new":false}';
+    $return["new"] = false;
   }
 
   $projPath = "saves/$project/logo/";
@@ -48,6 +49,16 @@ if (isset($_FILES['images'])) {
     $name = $images["name"][$i];
     move_uploaded_file($file, $projPath.$name);
   }
-}
 
+
+  $saves = array_flip(array_diff(scandir("saves"), array('..', '.')));
+  foreach ($saves as $key => $save) {
+    $images = array_diff(scandir("saves/$key/logo"), array('..', '.'));
+    asort($images);
+    $imagesArray[$key] = $images;
+  }
+  $return["type"] = "success";
+  $return["images"] = $imagesArray;
+  echo json_encode($return);
+}
 ?>
