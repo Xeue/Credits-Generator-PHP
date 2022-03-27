@@ -223,6 +223,9 @@ function openMenu(e) {
     } else {
       $nav.removeClass("navDelete");
     }
+    if ($ele.siblings("img").length > 0 && prop == "image") {
+      prop = "imageGroup";
+    }
     selectForMenu($ele, prop);
   } else if ($ele.hasClass("settingProp")) {
     let top = $ele.offset().top + $ele.outerHeight() + 10;
@@ -290,6 +293,7 @@ function closeMenu() {
 function selectForMenu($ele, prop) {
   let $targetBlock = $(".inEditor");
   let $target = $targetBlock.find("."+prop);
+
   switch (prop) {
     case "names":
       let role;
@@ -331,13 +335,14 @@ function selectForMenu($ele, prop) {
         $($names[index]).addClass("navSelected");
       }
       break;
+    case "imageGroup":
     case "image":
       let $next = $ele.next();
       $next.addClass("navSelected");
       $ele.addClass("navSelected");
       if ($next.hasClass("editorImgGrouped")) {
-        let index = $ele.parent().children("input").index($ele);
-        $($target[index]).addClass("navSelected");
+        let index = $ele.parent().children("select").index($ele);
+        $($targetBlock.children(".imageGroup").children()[index]).addClass("navSelected");
       } else {
         $target.addClass("navSelected");
       }
@@ -1014,7 +1019,8 @@ $(document).ready(function() {
       let $selected = $(".navSelected");
       if ($selected.hasClass("block")) {
         $selected.after($selected.prev());
-      } else if ($($selected[1]).hasClass("editorImgGrouped")) {
+      } else if ($($selected[2]).hasClass("editorImgGrouped")) {
+        $selected = $selected.slice(1);
         let $element = $($selected[0]);
         let $targetBlock = $(".inEditor");
         let $target = $targetBlock.find(".image");
@@ -1037,10 +1043,11 @@ $(document).ready(function() {
       let $selected = $(".navSelected");
       if ($selected.hasClass("block")) {
         $selected.next().insertBefore($selected);
-      } else if ($($selected[1]).hasClass("editorImgGrouped")) {
+      } else if ($($selected[2]).hasClass("editorImgGrouped")) {
+        $selected = $selected.slice(1);
         let $element = $($selected[0]);
         let $targetBlock = $(".inEditor");
-        let $target = $targetBlock.find(".image");
+        let $target = $targetBlock.children(".imageGroup").find(".image");
         let $next = $element.next();
 
         if ($element.next().length > 0) {

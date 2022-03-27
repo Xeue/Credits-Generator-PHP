@@ -533,14 +533,14 @@ $(document).click(function(e) {
     let imageHeight = $("#editorInput_imageHeight").val();
     $imgNew.css("max-height", imageHeight+"vh");
 
-    if ($targetBlock.find(".imageGroup").length == 0) {
+    if ($targetBlock.children(".imageGroup").length == 0) {
       let $imgGroup = $("<div class='imageGroup'></div>");
-      let $targetImg = $targetBlock.find(".image");
+      let $targetImg = $targetBlock.children(".image");
       $targetImg.replaceWith($imgGroup);
       $imgGroup.append($targetImg);
       $imgGroup.append($imgNew);
     } else {
-      $targetBlock.find(".imageGroup").append($imgNew);
+      $targetBlock.children(".imageGroup").append($imgNew);
     }
   }
 });

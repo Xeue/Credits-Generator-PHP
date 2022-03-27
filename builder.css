@@ -48,7 +48,8 @@ header>div {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-between;
+  position: relative;
 }
 
 #creditsScroller {
@@ -474,6 +475,7 @@ input[type=checkbox]::before {
   bottom: 0;
   left: 0;
   display: flex;
+  flex-wrap: wrap;
 }
 
 #newFade {
@@ -495,7 +497,8 @@ input[type=checkbox]::before {
   display: flex;
   flex-direction: column;
   position: relative;
-  border-top: 1px solid #333
+  border-top: 1px solid #333;
+  border-bottom: 3px solid #272727;
 }
 
 #editorCont.open {
@@ -530,6 +533,7 @@ input[type=checkbox]::before {
   width: 80%;
   background-color: rgba(124, 193, 85, 0.23);
   max-height: 80vh;
+  margin: auto;
 }
 
 .editing .block:empty::before {
