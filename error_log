@@ -12266,3 +12266,24 @@ Stack trace:
 [24-Mar-2022 16:42:56 UTC] PHP Notice:  Undefined variable: version in /home/qpi38xodfwt2/public_html/credits.chilton.tv/getTemplate.php on line 24
 [24-Mar-2022 16:43:22 UTC] PHP Notice:  Undefined variable: version in /home/qpi38xodfwt2/public_html/credits.chilton.tv/getTemplate.php on line 24
 [24-Mar-2022 16:44:38 UTC] PHP Notice:  Undefined variable: version in /home/qpi38xodfwt2/public_html/credits.chilton.tv/getTemplate.php on line 24
+[27-Mar-2022 12:51:11 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 7
+[27-Mar-2022 12:51:11 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:11 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Deprecated:  implode(): Passing glue string after array is deprecated. Swap the parameters in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 16
+[27-Mar-2022 12:51:12 UTC] PHP Warning:  scandir(saves/Univision Heats 2021/logo): failed to open dir: No such file or directory in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 19
+[27-Mar-2022 12:51:12 UTC] PHP Warning:  scandir(): (errno 2): No such file or directory in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 19
+[27-Mar-2022 12:51:12 UTC] PHP Warning:  array_diff(): Expected parameter 1 to be an array, bool given in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 19
+[27-Mar-2022 12:51:12 UTC] PHP Warning:  asort() expects parameter 1 to be array, null given in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 20
+[27-Mar-2022 12:51:12 UTC] PHP Warning:  Use of undefined constant HTTP_HOST - assumed 'HTTP_HOST' (this will throw an Error in a future version of PHP) in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 32
+[27-Mar-2022 12:51:12 UTC] PHP Warning:  Use of undefined constant HTTP_HOST - assumed 'HTTP_HOST' (this will throw an Error in a future version of PHP) in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 203
+[27-Mar-2022 12:51:12 UTC] PHP Warning:  Use of undefined constant REQUEST_URI - assumed 'REQUEST_URI' (this will throw an Error in a future version of PHP) in /home/qpi38xodfwt2/public_html/credits.chilton.tv/index.php on line 203
